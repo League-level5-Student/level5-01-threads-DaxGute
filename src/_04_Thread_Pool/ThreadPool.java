@@ -1,17 +1,17 @@
 package _04_Thread_Pool;
 
-import java.util.ArrayList;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class ThreadPool {
-	ArrayList <Thread> threads;
+	Thread [] threads;
 	ConcurrentLinkedQueue<Task> taskQueue;
 	public ThreadPool(int totalThreads) {
-		threads = new ArrayList <Thread> ();
-		for (int i = 0; i < threads.size(); i++) {
-			threads.set(i, new Thread(new Worker(taskQueue)));
-		}
+		threads = new Thread [totalThreads];
 		taskQueue = new ConcurrentLinkedQueue<Task>();
+		for (int i = 0; i < threads.length; i++) {
+			threads[i] = new Thread(new Worker(taskQueue));
+		}
+		
 	}
 
 	public void addTask(Task t) {
@@ -19,10 +19,10 @@ public class ThreadPool {
 	}
 
 	public void start(){
-		for (int i = 0; i < threads.size(); i++) {
-			threads.get(i).start();
+		for (int i = 0; i < threads.length; i++) {
+			threads[i].start();
 			try {
-				threads.get(i).join();
+				threads[i].join();
 			} catch (InterruptedException e) {
 				System.out.println("UHOH");
 				e.printStackTrace();
