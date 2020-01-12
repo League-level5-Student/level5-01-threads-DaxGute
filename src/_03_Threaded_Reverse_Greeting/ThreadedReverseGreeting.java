@@ -9,11 +9,19 @@ public class ThreadedReverseGreeting {
   //but you should structure your program such that the threads print their greetings in reverse order.
 	
 	/* HINT: You will most likely need to do this with recursion */
+	static ArrayList <Thread> threads = new ArrayList <Thread>();
 	public static void main(String[] args) {
-		ArrayList <Thread> threads = new ArrayList <Thread>();
-		Boolean Arbitrary = true;
-		while(Arbitrary) {
-			threads.add(new Thread;);
+		thread(0);
+		for (int i = 0; i < threads.size(); i++) {
+			threads.get(i).start();
 		}
+	}
+	public static void thread(int num) {
+		Thread t = new Thread(()-> {System.out.println("Hello from thread " + num);});
+		if (num < 50) {
+			thread(num + 1);
+		}
+		threads.add(t);
+		
 	}
 }
